@@ -31,7 +31,7 @@ is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test" }
 
 [dependencies]
 qemu-exit = { version = "1.0.0" }
-ruspiro-boot = { path = "../ruspiro-boot" } #"0.4.1"
+ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "feature/testframework" } #"0.4.1"
 ruspiro-allocator = "0.4.2"
 ruspiro-console = "0.3.2"
 ruspiro-uart = "0.3.1"

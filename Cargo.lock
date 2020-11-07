@@ -72,6 +72,7 @@ dependencies = [
 [[package]]
 name = "ruspiro-boot"
 version = "0.4.1"
+source = "git+https://github.com/RusPiRo/ruspiro-boot.git?branch=feature/testframework#3c2204a1a94dd1dba930a40ac0dd63ed6ac83442"
 dependencies = [
  "cc",
  "ruspiro-cache",
