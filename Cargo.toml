@@ -15,6 +15,7 @@ keywords = ["ruspiro"]
 edition = "2018"
 exclude = [".travis.yml", "Makefile.toml"]
 publish = false
+links = "ruspiro_test_framework"
 
 [badges]
 travis-ci = { repository = "RusPiRo/ruspiro-test", branch = "release" }
@@ -54,3 +55,5 @@ test = [
 # !This section need to be always the last in the Cargo.toml file!
 # ruspiro-register = { git = "https://github.com/RusPiRo/ruspiro-register.git", branch = "master" }
 # ruspiro-console = { git = "https://github.com/RusPiRo/ruspiro-console.git", branch = "feature/release4.0" }
+#ruspiro-boot = { path = "../ruspiro-boot" }
+#ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "feature/testframework" } #"0.4.1"

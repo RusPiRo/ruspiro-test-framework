@@ -26,4 +26,7 @@ fn main() {
     );
     println!("Copy linker script from {:?}, to {:?}", src_file, trg_file);
     fs::copy(src_file, trg_file).unwrap();
+
+    println!("cargo:linkerscript={}", src_file.display());
+    println!("cargo:rerun-if-changed=link64.ld");
 }
