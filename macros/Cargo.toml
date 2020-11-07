@@ -1,0 +1,40 @@
+[package]
+name = "ruspiro-test-macros"
+authors = ["André Borrmann <pspwizard@gmx.de>"]
+version = "0.1.0" # remember to update html_root_url in lib.rs
+description = """
+RusPiRo test framework proc macros.
+"""
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/RusPiRo/ruspiro-test/tree/v||VERSION||"
+documentation = "https://docs.rs/ruspiro-test/||VERSION||"
+categories = ["no-std", "embedded"]
+keywords = ["ruspiro", "test"]
+edition = "2018"
+
+[badges]
+travis-ci = { repository = "RusPiRo/ruspiro-test", branch = "release" }
+maintenance = { status = "actively-developed" }
+is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test" }
+
+[lib]
+proc-macro = true
+
+[build-dependencies]
+# uncomment this if a build.rs script should be run as part of the build process
+# cc = "1.0"
+
+[dependencies]
+proc-macro2 = "1.0.24"
+syn = { version = "1.0.48", features = ["extra-traits", "full"] }
+quote = "1.0.7"
+
+[features]
+
+[patch.crates-io]
+# we require an entry for each dependent RUSPIRO crate here
+# this increases PR build stability if dependent crates got updated but are not
+# published to crates.io yet.
+# !This section need to be always the last in the Cargo.toml file!
+# ruspiro-register = { git = "https://github.com/RusPiRo/ruspiro-register.git", branch = "master" }
