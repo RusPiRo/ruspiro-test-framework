@@ -72,7 +72,8 @@ dependencies = [
 [[package]]
 name = "ruspiro-boot"
 version = "0.4.1"
-source = "git+https://github.com/RusPiRo/ruspiro-boot.git?branch=feature/testframework#3c2204a1a94dd1dba930a40ac0dd63ed6ac83442"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e4d665bc01d3a75eec7437f0594593318a4d375f18d21ff51c7539e8b0cc807"
 dependencies = [
  "cc",
  "ruspiro-cache",
@@ -87,6 +88,14 @@ checksum = "926668a6e9ae69c52dfacbb8ea6f0929604244ec08aaa4a42c2aabb9deaaed89"
 dependencies = [
  "cc",
  "ruspiro-arch-aarch64",
+]
+
+[[package]]
+name = "ruspiro-channel"
+version = "0.1.0"
+source = "git+https://github.com/RusPiRo/ruspiro-channel.git#cd3c1afed4753db24793c53355d9455cbe12e698"
+dependencies = [
+ "ruspiro-lock",
 ]
 
 [[package]]
@@ -208,6 +217,7 @@ dependencies = [
  "qemu-exit",
  "ruspiro-allocator",
  "ruspiro-boot",
+ "ruspiro-channel",
  "ruspiro-console",
  "ruspiro-mailbox",
  "ruspiro-mmu",

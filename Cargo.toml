@@ -18,9 +18,9 @@ publish = false
 links = "ruspiro_test_framework"
 
 [badges]
-travis-ci = { repository = "RusPiRo/ruspiro-test", branch = "release" }
+travis-ci = { repository = "RusPiRo/ruspiro-test-framework", branch = "release" }
 maintenance = { status = "actively-developed" }
-is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test" }
+is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test-framework" }
 
 [lib]
 
@@ -31,13 +31,15 @@ is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test" }
 
 [dependencies]
 qemu-exit = { version = "1.0.0" }
-ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "feature/testframework" } #"0.4.1"
+#ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "feature/testframework", features = ["multicore"] } #"0.4.1"
+ruspiro-boot = { version = "0.4.1", features = ["multicore"]}
 ruspiro-allocator = "0.4.2"
 ruspiro-console = "0.3.2"
 ruspiro-uart = "0.3.1"
 ruspiro-mmu = "0.1"
 ruspiro-mailbox = "0.4"
 ruspiro-test-macros = { path = "./macros/" }
+ruspiro-channel = { git = "https://github.com/RusPiRo/ruspiro-channel.git" }
 
 [features]
 ruspiro_pi3 = [
@@ -45,7 +47,7 @@ ruspiro_pi3 = [
     "ruspiro-mailbox/ruspiro_pi3"
 ]
 test = [ 
-    "ruspiro-boot/test"
+#    "ruspiro-boot/multicore"
 ]
 
 [patch.crates-io]
