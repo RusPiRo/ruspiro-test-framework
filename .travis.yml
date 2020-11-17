@@ -7,6 +7,9 @@ branches:
 
 language: rust
 
+# use a newer Ubuntu release
+dist: focal
+
 rust:
 # build nightly only for the time beeing
   - nightly
