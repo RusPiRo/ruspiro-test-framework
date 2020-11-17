@@ -6,17 +6,24 @@
 [env.development]
 CC = "aarch64-none-elf-gcc"
 AR = "aarch64-none-elf-ar"
+OCOPY = "aarch64-none-elf-objcopy"
 CFLAGS = "-march=armv8-a -Wall -O3 -nostdlib -nostartfiles -ffreestanding -mtune=cortex-a53"
 RUSTFLAGS = "-C linker=${CC} -C target-cpu=cortex-a53 -C link-arg=-nostartfiles -C link-arg=-T./link64.ld"
 BUILD_TARGET = "aarch64-unknown-none"
+QEMUMACHINE = "raspi3"
+QEMUCMD = "qemu-system-aarch64"
+
 
 # AARCH64 specific Travis CI env. variables. "aarch64-none-elf" is not available there as it seems
 [env.travis]
 CC = "aarch64-linux-gnu-gcc"
 AR = "aarch64-linux-gnu-ar"
+OCOPY = "aarch64-linux-gnu-objcopy"
 CFLAGS = "-march=armv8-a -Wall -O3 -nostdlib -nostartfiles -ffreestanding -mtune=cortex-a53"
 RUSTFLAGS = "-C linker=${CC} -C target-cpu=cortex-a53 -C link-arg=-nostartfiles -C link-arg=-T./link64.ld"
 BUILD_TARGET = "aarch64-unknown-none"
+QEMUMACHINE = "raspi3b"
+QEMUCMD = "./qemu/bin/qemu-system-aarch64"
 
 [tasks.xbuild]
 command = "cargo"
@@ -35,11 +42,6 @@ args = ["clippy", "--target", "${BUILD_TARGET}", "--features", "${FEATURES}"]
 env = { FEATURES = "ruspiro_pi3" }
 command = "cargo"
 args = ["doc", "--target", "${BUILD_TARGET}", "--features", "${FEATURES}", "--open"]
-
-[tasks.unittest]
-env = { FEATURES = "ruspiro_pi3" }
-command = "cargo"
-args = ["xtest", "--target", "${BUILD_TARGET}", "--tests", "--features", "${FEATURES}"]
 
 [tasks.doctest]
 env = { FEATURES = "ruspiro_pi3" }
@@ -60,13 +62,19 @@ args = ["publish", "--token", "${CRATES_TOKEN}", "--allow-dirty", "--target", "$
 command = "cargo"
 args = ["clean"]
 
+[tasks.unittest]
+env = { FEATURES = "ruspiro_pi3" }
+command = "cargo"
+args = ["xtest", "--target", "${BUILD_TARGET}", "--tests", "--features", "${FEATURES}"]
+
 [tasks.qemu-test-objcopy]
-command = "aarch64-none-elf-objcopy"
-args = ["-O",  "binary",  "${CARGO_MAKE_TASK_ARGS}", "./target/kernel-test.img"]
+command = "${OCOPY}"
+args = ["-O",  "binary",  "${CARGO_MAKE_TASK_ARGS}", "./target/kernel8.img"]
 
 [tasks.qemu-test]
-script = [
-    "qemu-system-aarch64 -semihosting -display none -M raspi3 -kernel ./target/kernel-test.img -serial null -serial stdio -d int,mmu -D qemu-test.log"
+command = "${QEMUCMD}"
+args = [
+    "-semihosting", "-nographic", "-M", "${QEMUMACHINE}", "-kernel", "./target/kernel8.img", "-serial", "null", "-serial", "mon:stdio"
 ]
 dependencies = [
     "qemu-test-objcopy"

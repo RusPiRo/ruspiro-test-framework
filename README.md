@@ -2,10 +2,10 @@
 
 The crate provides a custom test framwork that can be used for unit and integration tests with other `ruspiro-` crates using *QEMU* as runtime.
 
-[![Travis-CI Status](https://api.travis-ci.com/RusPiRo/ruspiro-singleton.svg?branch=master)](https://travis-ci.com/RusPiRo/ruspiro-singleton)
-[![Latest Version](https://img.shields.io/crates/v/ruspiro-singleton.svg)](https://crates.io/crates/ruspiro-singleton)
-[![Documentation](https://docs.rs/ruspiro-singleton/badge.svg)](https://docs.rs/ruspiro-singleton)
-[![License](https://img.shields.io/crates/l/ruspiro-singleton.svg)](https://github.com/RusPiRo/ruspiro-singleton#license)
+[![Travis-CI Status](https://api.travis-ci.com/RusPiRo/ruspiro-test-framework.svg?branch=master)](https://travis-ci.com/RusPiRo/ruspiro-test-framework)
+[![Latest Version](https://img.shields.io/crates/v/ruspiro-test-framework.svg)](https://crates.io/crates/ruspiro-test-framework)
+[![Documentation](https://docs.rs/ruspiro-test-framework/badge.svg)](https://docs.rs/ruspiro-test-framework)
+[![License](https://img.shields.io/crates/l/ruspiro-test-framework.svg)](https://github.com/RusPiRo/ruspiro-test-framework#license)
 
 The content of this crate is inspired by the preparation work and initial investigations of [@André Richter](https://github.com/andre-richter) and [@Phil Opp](https://github.com/phil-opp).
 

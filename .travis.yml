@@ -49,12 +49,29 @@ jobs:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then sed -i "/{^\[patch\.crates-io\] /{:a;N;/\Z}/!ba};/^ruspiro-.*\(git\|path\).*/d" Cargo.toml; fi'
       script: cargo make doctest --profile dummy
     - stage: test
-      name: "Run Unit Tests"
+      name: "Run Unit Tests on QEMU"
       install:
-        - cargo install cargo-make 
+        - sudo apt-get install ninja-build
+        - wget https://download.qemu.org/qemu-5.2.0-rc0.tar.xz
+        - tar xvJf qemu-5.2.0-rc0.tar.xz > /dev/null
+        - cd qemu-5.2.0-rc0
+        - ./configure --disable-kvm --prefix=$TRAVIS_BUILD_DIR/qemu --target-list="arm-softmmu aarch64-softmmu"
+        - travis_wait make
+        - make
+        - sudo make install
+        - cd ..
+        - sudo find ~/ -type f -name "qemu-system-*"
+        - sudo apt-get install -y gcc-aarch64-linux-gnu
+        - cargo install cargo-xbuild
+        - cargo install cargo-make
+        - rustup target add aarch64-unknown-none
+        - rustup component add rust-src
+        - rustup component add llvm-tools-preview
         # if we not build a PR we remove the patch of the dependencies to their github repo's
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then sed -i "/{^\[patch\.crates-io\] /{:a;N;/\Z}/!ba};/^ruspiro-.*\(git\|path\).*/d" Cargo.toml; fi'
-      script: cargo make unittest --profile dummy
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then sed -i "/\[patch\.crates-io\]/,$ s/ruspiro-\(.*\)/# ruspiro-\1/g" Cargo.toml; fi'
+        # adjust the config.toml to call the test runner with the travis profile
+        - sed -i 's/\(cargo make qemu-test\)/\1 --profile travis/g' .cargo/config.toml
+      script: cargo make --profile travis unittest
 
     - stage: publish_dry
       name: "Run Cargo Publish Dry-Run"

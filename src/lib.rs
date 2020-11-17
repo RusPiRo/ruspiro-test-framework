@@ -134,7 +134,6 @@ fn prepare_test_runner(core: u32) {
         }
 
         unsafe {
-            for core in 0..4 {}
             CORE_CHANNEL.replace([
                 CoreExecution {
                     channel: mpmc::channel(),
@@ -195,12 +194,12 @@ pub fn _panic_exit(_info: &PanicInfo) -> ! {
     QEMU_EXIT.exit_failure()
 }
 
-#[cfg(not(test))]//feature = "test")]
+#[cfg(not(test))]
 extern "C" {
     pub fn run_test_main();
 }
 
-#[cfg(test)] //not(feature = "test"))]
+#[cfg(test)]
 fn run_test_main() {
     #[cfg(test)]
     test_main();

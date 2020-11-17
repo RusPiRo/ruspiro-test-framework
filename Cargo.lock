@@ -2,15 +2,15 @@
 # It is not intended for manual editing.
 [[package]]
 name = "cc"
-version = "1.0.60"
+version = "1.0.62"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ef611cc68ff783f18535d77ddd080185275713d852c4f5cbb6122c462a7a825c"
+checksum = "f1770ced377336a88a67c473594ccc14eca6f4559217c34f64aac8f83d641b40"
 
 [[package]]
 name = "paste"
-version = "1.0.2"
+version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba7ae1a2180ed02ddfdb5ab70c70d596a26dd642e097bb6fe78b1bde8588ed97"
+checksum = "7151b083b0664ed58ed669fcdd92f01c3d2fdbf10af4931a301474950b52bfa9"
 
 [[package]]
 name = "proc-macro2"
@@ -71,9 +71,9 @@ dependencies = [
 
 [[package]]
 name = "ruspiro-boot"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e4d665bc01d3a75eec7437f0594593318a4d375f18d21ff51c7539e8b0cc807"
+checksum = "200bd09f6956a7a9846115d2b387a85512aee36d331e19277764b3939bcf3d40"
 dependencies = [
  "cc",
  "ruspiro-cache",

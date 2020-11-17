@@ -24,15 +24,9 @@ is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test-framework" }
 
 [lib]
 
-[build-dependencies]
-# uncomment this if a build.rs script should be run as part of the build process
-# cc = "1.0"
-
-
 [dependencies]
 qemu-exit = { version = "1.0.0" }
-#ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "feature/testframework", features = ["multicore"] } #"0.4.1"
-ruspiro-boot = { version = "0.4.1", features = ["multicore"]}
+ruspiro-boot = { version = "0.4.2", features = ["multicore"]}
 ruspiro-allocator = "0.4.2"
 ruspiro-console = "0.3.2"
 ruspiro-uart = "0.3.1"
@@ -46,16 +40,6 @@ ruspiro_pi3 = [
     "ruspiro-uart/ruspiro_pi3",
     "ruspiro-mailbox/ruspiro_pi3"
 ]
-test = [ 
-#    "ruspiro-boot/multicore"
-]
+test = [ ]
 
 [patch.crates-io]
-# we require an entry for each dependent RUSPIRO crate here
-# this increases PR build stability if dependent crates got updated but are not
-# published to crates.io yet.
-# !This section need to be always the last in the Cargo.toml file!
-# ruspiro-register = { git = "https://github.com/RusPiRo/ruspiro-register.git", branch = "master" }
-# ruspiro-console = { git = "https://github.com/RusPiRo/ruspiro-console.git", branch = "feature/release4.0" }
-#ruspiro-boot = { path = "../ruspiro-boot" }
-#ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "feature/testframework" } #"0.4.1"
