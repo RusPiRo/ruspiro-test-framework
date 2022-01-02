@@ -13,33 +13,30 @@ documentation = "https://docs.rs/ruspiro-test-framework/||VERSION||"
 categories = ["no-std", "embedded"]
 keywords = ["ruspiro"]
 edition = "2018"
-exclude = [".travis.yml", "Makefile.toml"]
+exclude = ["Makefile.toml", ".github", ".cargo/config.toml"]
 publish = false
 links = "ruspiro_test_framework"
 
 [badges]
-travis-ci = { repository = "RusPiRo/ruspiro-test-framework", branch = "release" }
 maintenance = { status = "actively-developed" }
-is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-test-framework" }
 
 [lib]
 
 [dependencies]
-qemu-exit = { version = "1.0.0" }
-ruspiro-boot = { version = "0.4.2", features = ["multicore"]}
-ruspiro-allocator = "0.4.2"
-ruspiro-console = "0.3.2"
-ruspiro-uart = "0.3.1"
-ruspiro-mmu = "0.1"
-ruspiro-mailbox = "0.4"
+# get functions like memset, memcpy into the binary
+rlibc = "=1.0.0"
+qemu-exit = "~3.0.0"
+ruspiro-boot = { version = "~0.5.4", default-features = false }
+ruspiro-arch-aarch64 = "~0.1.7"
+ruspiro-mmio-register = "~0.1.4"
+ruspiro-allocator = "~0.4.6"
+ruspiro-mmu = "~0.1.1"
 ruspiro-test-macros = { path = "./macros/" }
-ruspiro-channel = { git = "https://github.com/RusPiRo/ruspiro-channel.git" }
+ruspiro-channel = "~0.1.1"
 
 [features]
-ruspiro_pi3 = [
-    "ruspiro-uart/ruspiro_pi3",
-    "ruspiro-mailbox/ruspiro_pi3"
-]
-test = [ ]
+multicore = ["ruspiro-boot/multicore"]
 
 [patch.crates-io]
+ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "development" }
+ruspiro-allocator = { git = "https://github.com/RusPiRo/ruspiro-allocator.git", branch = "development" }
