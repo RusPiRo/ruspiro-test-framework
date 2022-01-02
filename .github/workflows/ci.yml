@@ -82,6 +82,7 @@ jobs:
         #  ./configure --disable-kvm --prefix=~/tmp/qemu --target-list="arm-softmmu aarch64-softmmu"
         #  make
         #  sudo make install
+        # cd ..
 
         
       - name: Find QEMU
