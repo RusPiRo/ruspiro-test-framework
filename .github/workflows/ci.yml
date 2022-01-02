@@ -74,8 +74,9 @@ jobs:
 
       - name: Set up QEMU
         run: |
+          sudo apt-get update
           sudo apt-get install -y qemu qemu-system-arm qemu-system-aarch64
-          sudo find ~/ -type f -name "qemu-system-*"
+        #sudo find ~/ -type f -name "qemu-system-*"
         #run: |
         #  sudo apt-get install ninja-build
         #  wget https://download.qemu.org/qemu-6.2.0.tar.xz
@@ -84,7 +85,10 @@ jobs:
         #  ./configure --disable-kvm --prefix=~/tmp/qemu --target-list="arm-softmmu aarch64-softmmu"
         #  make
         #  sudo make install
-        # cd ..
+        #  cd ..
+
+      - name: QEMU Version
+        run: qemu-system-aarch64 -version
 
       - name: Run Unit Tests
         run: cargo make -t test --profile pipeline
