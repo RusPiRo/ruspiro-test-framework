@@ -212,7 +212,7 @@ mod tests {
 
     #[ruspiro_test]
     fn simple_unittest() {
-        assert_eq!(1, 2);
+        assert_eq!(1, 1);
 
         // explicitly run something on core 1
         run_on_core(1, || {
