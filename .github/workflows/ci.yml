@@ -73,7 +73,7 @@ jobs:
           version: 'latest'
 
       - name: Set up QEMU
-        run: sudo apt-get install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
+        run: sudo apt-get install qemu-kvm qemu
         #run: |
         #  sudo apt-get install ninja-build
         #  wget https://download.qemu.org/qemu-6.2.0.tar.xz
