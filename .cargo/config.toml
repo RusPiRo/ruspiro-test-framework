@@ -5,4 +5,4 @@ target = "aarch64-ruspiro.json"
 build-std = ["core", "compiler_builtins", "alloc"]
 
 [target.'cfg(target_os = "none")']
-runner = "cargo make qemu-test"
+runner = "cargo make --profile ${PROFILE} qemu-test"
