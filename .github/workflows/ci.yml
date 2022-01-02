@@ -81,7 +81,7 @@ jobs:
           wget https://download.qemu.org/qemu-6.2.0.tar.xz
           tar xvJf qemu-6.2.0.tar.xz > /dev/null
           cd qemu-6.2.0
-          ./configure --disable-kvm --prefix= --target-list="arm-softmmu aarch64-softmmu"
+          ./configure --disable-kvm --prefix=ci --target-list="arm-softmmu aarch64-softmmu"
           make
           sudo make install
           cd ..
@@ -89,7 +89,7 @@ jobs:
       - name: QEMU Version
         run: |
           sudo find ~/ -type f -name "qemu-system-*"
-          /home/runner/tmp/qemu/bin/qemu-system-aarch64 -version
+          /home/runner/tmp/qemu/ci/bin/qemu-system-aarch64 -version
 
       - name: Run Unit Tests
         run: cargo make -t test --profile pipeline
