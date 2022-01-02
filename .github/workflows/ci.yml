@@ -90,7 +90,7 @@ jobs:
         run: |
           sudo find ~/ -type f -name "qemu-system-*"
           ${GITHUB_WORKSPACE}/qemu-6.2.0/build/qemu-system-aarch64 -version
-          ${{env.GITHUB_WORKSPACE}}/qemu-6.2.0/build/qemu-system-aarch64 -machine help
+          ${GITHUB_WORKSPACE}/qemu-6.2.0/build/qemu-system-aarch64 -machine help
 
       - name: Run Unit Tests
         run: cargo make -t test --profile pipeline
