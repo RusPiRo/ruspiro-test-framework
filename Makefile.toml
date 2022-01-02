@@ -17,7 +17,7 @@ OCOPY = "aarch64-linux-gnu-objcopy"
 CFLAGS = "-march=armv8-a -Wall -O3 -nostdlib -nostartfiles -ffreestanding -mtune=cortex-a53"
 RUSTFLAGS = "-C target-cpu=cortex-a53 -C target-feature=+strict-align,+a53,+fp-armv8,+neon -C link-arg=-T./link64.ld"
 QEMUMACHINE = "raspi3b"
-QEMUCMD = "qemu-system-aarch64"
+QEMUCMD = "/home/runner/tmp/qemu/bin/qemu-system-aarch64"
 
 [tasks.build]
 command = "cargo"
