@@ -116,7 +116,7 @@ jobs:
         run: cargo make -t publish_dry --profile pipeline
 
   prepare_release:
-    needs: [build, publish_dry]
+    needs: [build, test, publish_dry]
     if: ${{ github.ref == 'refs/heads/development' }}
     name: Prepare Release - Create Release PR
     runs-on: ubuntu-latest

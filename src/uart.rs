@@ -1,6 +1,6 @@
 //! # miniUART
 //!
-//! Bare bone miniUART implementation for the bootloader
+//! Bare bone miniUART implementation for the test framework
 //!
 
 use ruspiro_arch_aarch64::{RegisterField, RegisterFieldValue};
@@ -81,45 +81,6 @@ pub fn init(clock_rate: u32, baud_rate: u32) {
 
 pub fn send_string(s: &str) {
   send_data(s.as_bytes());
-}
-
-pub fn try_receive_data(buffer: &mut [u8]) -> Result<usize, ()> {
-  if buffer.is_empty() {
-    Err(())
-  } else {
-    for c in 0..buffer.len() {
-      buffer[c] = receive_byte(1000)?;
-    }
-    Ok(buffer.len())
-  }
-}
-
-pub fn receive_data(buffer: &mut [u8]) -> Result<usize, ()> {
-  if buffer.is_empty() {
-    Err(())
-  } else {
-    for c in 0..buffer.len() {
-      buffer[c] = receive_byte(0)?;
-    }
-    Ok(buffer.len())
-  }
-}
-
-fn receive_byte(timeout: i32) -> Result<u8, ()> {
-  let mut count = 0;
-  while AUX_MU_LSR_REG::Register.read(AUX_MU_LSR_REG::DATAREADY) == 0
-    && (timeout == 0 || count < timeout)
-  {
-    for _ in 0..1000 {
-      unsafe { asm!("NOP") }
-    }
-    count += 1;
-  }
-  if timeout != 0 && count >= timeout {
-    Err(())
-  } else {
-    Ok((AUX_MU_IO_REG::Register.get() & 0xFF) as u8)
-  }
 }
 
 pub fn send_data(data: &[u8]) {

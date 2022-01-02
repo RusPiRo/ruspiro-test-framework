@@ -55,7 +55,8 @@ checksum = "fc874b127765f014d792f16763a81245ab80500e2ad921ed4ee9e82481ee08fe"
 
 [[package]]
 name = "ruspiro-allocator"
-version = "0.4.5"
+version = "0.4.6"
+source = "git+https://github.com/RusPiRo/ruspiro-allocator.git?branch=development#4727d7b7456c1b4de03a1241a67819bfa8f5c6d6"
 dependencies = [
  "rlibc",
 ]

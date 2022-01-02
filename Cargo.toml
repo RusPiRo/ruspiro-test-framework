@@ -29,7 +29,7 @@ qemu-exit = "~3.0.0"
 ruspiro-boot = { version = "~0.5.4", default-features = false }
 ruspiro-arch-aarch64 = "~0.1.7"
 ruspiro-mmio-register = "~0.1.4"
-ruspiro-allocator = { path = "../ruspiro-allocator" } #"~0.4.5"
+ruspiro-allocator = "~0.4.6"
 ruspiro-mmu = "~0.1.1"
 ruspiro-test-macros = { path = "./macros/" }
 ruspiro-channel = "~0.1.1"
@@ -39,3 +39,4 @@ multicore = ["ruspiro-boot/multicore"]
 
 [patch.crates-io]
 ruspiro-boot = { git = "https://github.com/RusPiRo/ruspiro-boot.git", branch = "development" }
+ruspiro-allocator = { git = "https://github.com/RusPiRo/ruspiro-allocator.git", branch = "development" }
