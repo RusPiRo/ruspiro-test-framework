@@ -73,15 +73,16 @@ jobs:
           version: 'latest'
 
       - name: Set up QEMU
-        id: qemu
-        uses: docker/setup-qemu-action@v1
-        with:
-          image: tonistiigi/binfmt:latest
-          platforms: all
+        run: |
+          sudo apt-get install ninja-build
+          wget https://download.qemu.org/qemu-6.2.0.tar.xz
+          tar xvJf qemu-6.2.0.tar.xz > /dev/null
+          cd qemu-5.2.0-rc0
+          ./configure --disable-kvm --prefix=$TRAVIS_BUILD_DIR/qemu --target-list="arm-softmmu aarch64-softmmu"
+          make
+          sudo make install
 
-      - name: Available platforms
-        run: echo ${{ steps.qemu.outputs.platforms }}
-
+        
       - name: Find QEMU
         run: sudo find ~/ -type f -name "qemu-system-*"
 
