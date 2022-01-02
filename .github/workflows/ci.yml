@@ -44,7 +44,7 @@ jobs:
           cat Cargo.toml
 
       - name: Compile
-        run: cargo make -t build --profile pipeline
+        run: cargo make -t pi3 --profile pipeline
 
   test:
     name: Run QEMU Unit Tests
@@ -81,6 +81,9 @@ jobs:
 
       - name: Available platforms
         run: echo ${{ steps.qemu.outputs.platforms }}
+
+      - name: Find QEMU
+        run: sudo find ~/ -type f -name "qemu-system-*"
 
       - name: Run Unit Tests
         run: cargo make -t test --profile pipeline
