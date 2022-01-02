@@ -2,7 +2,7 @@
 
 The crate provides a custom test framwork that can be used for unit and integration tests with other `ruspiro-` crates using *QEMU* as runtime.
 
-[![Travis-CI Status](https://api.travis-ci.com/RusPiRo/ruspiro-test-framework.svg?branch=master)](https://travis-ci.com/RusPiRo/ruspiro-test-framework)
+![CI](https://github.com/RusPiRo/ruspiro-test-framework/workflows/CI/badge.svg?branch=development)
 [![Latest Version](https://img.shields.io/crates/v/ruspiro-test-framework.svg)](https://crates.io/crates/ruspiro-test-framework)
 [![Documentation](https://docs.rs/ruspiro-test-framework/badge.svg)](https://docs.rs/ruspiro-test-framework)
 [![License](https://img.shields.io/crates/l/ruspiro-test-framework.svg)](https://github.com/RusPiRo/ruspiro-test-framework#license)
@@ -18,7 +18,7 @@ To use this crate several steps are required.
 First add the dependency to your ``Cargo.toml`` file:
 
 ```toml
-[dependencies]
+[dev-dependencies]
 ruspiro-test-framework = "||VERSION||"
 ```
 

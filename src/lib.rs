@@ -6,7 +6,7 @@
  **********************************************************************************************************************/
 #![doc(html_root_url = "https://docs.rs/ruspiro-test-framework/||VERSION||")]
 #![no_std]
-#![cfg_attr(test, no_main)]
+#![no_main]
 #![feature(custom_test_frameworks)]
 #![reexport_test_harness_main = "test_main"]
 #![test_runner(test_runner)]
@@ -21,18 +21,17 @@
 extern crate ruspiro_boot;
 extern crate alloc;
 extern crate ruspiro_allocator;
-use alloc::{boxed::Box, sync::Arc};
-use core::{
-    panic::PanicInfo,
-    sync::atomic::{AtomicU16, Ordering},
-};
+use alloc::boxed::Box;
+use core::sync::atomic::{AtomicU16, Ordering};
 use qemu_exit::QEMUExit;
 use ruspiro_channel::mpmc;
-pub use ruspiro_console::*;
-use ruspiro_mailbox::Mailbox;
 use ruspiro_mmu as mmu;
 pub use ruspiro_test_macros::*;
-use ruspiro_uart::Uart1;
+
+mod uart;
+#[macro_use]
+pub mod macros;
+pub use macros::*;
 
 #[cfg(target_arch = "aarch64")]
 const QEMU_EXIT: qemu_exit::AArch64 = qemu_exit::AArch64::new();
@@ -106,6 +105,12 @@ pub fn wait_for_core(core: u32) {
     }
 }
 
+#[doc(hidden)]
+/// The base printing function hidden behind the print! and println! macro. This function forwards all calls to the uart
+pub fn _print(s: &str) {
+  uart::send_string(s);
+}
+
 struct CoreExecution {
     channel: (
         mpmc::Sender<Box<dyn FnOnce() + Send + 'static>>,
@@ -121,18 +126,10 @@ run_with!(execute_test_runner);
 
 fn prepare_test_runner(core: u32) {
     if core == 0 {
-        let mut mailbox = Mailbox::new();
-        let (vc_mem_start, vc_mem_size) = mailbox
-            .get_vc_memory()
-            .expect("Fatal issue getting VC memory split");
+        // use some fixed VC memory which is kind of not relevant here
+        unsafe { mmu::initialize(core, 0x3E00_0000, 0xFF_0000) };
 
-        unsafe { mmu::initialize(core, vc_mem_start, vc_mem_size) };
-
-        let mut uart = Uart1::new();
-        if uart.initialize(250_000_000, 115_200).is_ok() {
-            CONSOLE.take_for(|cons| cons.replace(uart));
-        }
-
+        uart::init(250_000_000, 115_200);
         unsafe {
             CORE_CHANNEL.replace([
                 CoreExecution {
@@ -189,14 +186,17 @@ fn execute_test_runner(core: u32) -> ! {
     }
 }
 
-#[panic_handler]
-pub fn _panic_exit(_info: &PanicInfo) -> ! {
-    QEMU_EXIT.exit_failure()
-}
-
 #[cfg(not(test))]
 extern "C" {
     pub fn run_test_main();
+}
+
+#[cfg(test)]
+#[panic_handler]
+pub fn _panic_exit(info: &core::panic::PanicInfo) -> ! {
+    println!("[failure]");
+    println!("Error: {}", info);
+    QEMU_EXIT.exit_failure()
 }
 
 #[cfg(test)]
@@ -212,7 +212,7 @@ mod tests {
 
     #[ruspiro_test]
     fn simple_unittest() {
-        assert_eq!(1, 1);
+        assert_eq!(1, 2);
 
         // explicitly run something on core 1
         run_on_core(1, || {
